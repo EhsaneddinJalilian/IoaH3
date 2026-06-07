@@ -343,11 +343,11 @@ def raster_to_h3(raster_path, res, stat="sum", downsample=1, bbox=None) -> pd.Da
             ))
         df = pd.DataFrame(rows_out, columns=["h3", "val", "mean_elev", "elev_roughness"])
         df.to_parquet(cache_file)
-        print(f"    ✅ {len(df):,} cells  roughness max={float(df['elev_roughness'].max()):.4f}")
+        print(f"     {len(df):,} cells  roughness max={float(df['elev_roughness'].max()):.4f}")
         return df
 
     except Exception as e:
-        print(f"  ❌ Failed: {e}")
+        print(f"  x Failed: {e}")
         import traceback; traceback.print_exc()
         return pd.DataFrame(columns=["h3", "val", "mean_elev", "elev_roughness"])
 
@@ -372,7 +372,7 @@ def aggregate_roughness_fine_to_coarse(fine_df: pd.DataFrame,
     fine_df["h3"] = fine_df["h3"].astype(str)
 
     if "elev_roughness" not in fine_df.columns:
-        print("  ⚠️  fine_df has no elev_roughness column")
+        print("    fine_df has no elev_roughness column")
         return {}
 
     nz = fine_df[fine_df["elev_roughness"] > 0]
@@ -402,7 +402,7 @@ def patch_coarse_roughness(elev_result: pd.DataFrame,
                             coarse_res: int = COARSE_RES) -> pd.DataFrame:
     """Patch roughness=0 in *elev_result* using aggregated fine-res cache."""
     if not Path(fine_cache_path).exists():
-        print(f"  ⚠️  Fine elev cache not found: {fine_cache_path}")
+        print(f"    Fine elev cache not found: {fine_cache_path}")
         return elev_result
     fine_df = pd.read_parquet(fine_cache_path)
     fine_rmax = float(fine_df["elev_roughness"].max()) if "elev_roughness" in fine_df.columns else 0.0
