@@ -41,7 +41,7 @@ def main():
 
     substrate = run()
     if substrate is not None:
-        print("\n✅ Done.")
+        print("\n Done.")
         for r in sorted(substrate["resolution"].unique()):
             print(f"  Res {r}: {(substrate['resolution'] == r).sum():,} cells")
 
