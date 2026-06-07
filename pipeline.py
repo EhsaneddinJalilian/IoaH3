@@ -72,7 +72,7 @@ def run() -> pd.DataFrame:
                        elev_result=elev_result, haz_result=haz_result,
                        elev_h3_polygons=elev_h3_polygons)
             return df_combined
-        print("  ⚠️  Checkpoint missing — running full pipeline …\n")
+        print("    Checkpoint missing — running full pipeline …\n")
 
     start = time.time()
     bbox  = VIENNA_BOUNDS if USE_VIENNA_ONLY else None
@@ -127,7 +127,7 @@ def run() -> pd.DataFrame:
                elev_result=elev_result, haz_result=haz_result,
                elev_h3_polygons=elev_h3_polygons)
 
-    print(f"\n✅ IOAH3 COMPLETE  ({time.time() - start:.1f}s)")
+    print(f"\n IOAH3 COMPLETE  ({time.time() - start:.1f}s)")
     print(f"  Cells: {len(df_combined):,}")
     return df_combined
 
@@ -148,9 +148,9 @@ def _maybe_patch_roughness(elev_result, dem_4326_path, post=False):
         elev_result = patch_coarse_roughness(elev_result, fine_cache)
         coarse_cache = CACHE_DIR / f"{Path(dem_4326_path).stem}_h3_res{COARSE_RES}.parquet"
         elev_result.to_parquet(coarse_cache)
-        print(f"  💾 Patched coarse cache saved: {coarse_cache.name}")
+        print(f"   Patched coarse cache saved: {coarse_cache.name}")
     else:
-        print(f"  ℹ️  Fine cache not yet available ({fine_cache.name})")
+        print(f"    Fine cache not yet available ({fine_cache.name})")
     return elev_result
 
 
