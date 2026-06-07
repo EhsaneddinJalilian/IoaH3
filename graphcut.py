@@ -48,7 +48,7 @@ def compute_importance_graph_cut(
     -------
     df_coarse with added columns: included, excluded, importance_score
     """
-    print("\n  ✨ MRF Graph-Cut Optimisation …")
+    print("\n   MRF Graph-Cut Optimisation …")
 
     df = df_coarse.copy()
     df["h3"] = df["h3"].astype(str)
@@ -79,7 +79,7 @@ def compute_importance_graph_cut(
         g.add_tedge(i, float(score), 0.0)
 
     # Pairwise (smoothness) terms — H3 k-ring-1 adjacency
-    print("    ⚡ Building pairwise edges …")
+    print("     Building pairwise edges …")
     pop_dict = dict(zip(df["h3"], df["pop"]))
     haz_dict = dict(zip(df["h3"], df["haz"]))
 
@@ -98,7 +98,7 @@ def compute_importance_graph_cut(
         except Exception:
             continue
 
-    print("    🔥 Running max-flow …")
+    print("     Running max-flow …")
     g.maxflow()
 
     labels = np.array([g.get_segment(i) for i in range(len(df))])
