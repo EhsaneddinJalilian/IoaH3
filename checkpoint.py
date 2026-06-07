@@ -25,7 +25,7 @@ _FILES = {
 
 def save_checkpoint(df_combined, df_cells, elev_result, haz_result,
                     road_h3_set, elev_h3_polygons):
-    print("\n  💾 Saving checkpoint …")
+    print("\n   Saving checkpoint …")
     df_combined.to_parquet(_FILES["df_combined"])
     df_cells.to_parquet(_FILES["df_cells"])
     elev_result.to_parquet(_FILES["elev_result"])
@@ -34,17 +34,17 @@ def save_checkpoint(df_combined, df_cells, elev_result, haz_result,
         pickle.dump(road_h3_set, f)
     with open(_FILES["elev_h3_polygons"], "wb") as f:
         pickle.dump(elev_h3_polygons, f)
-    print(f"  ✅ Checkpoint saved to {CACHE_DIR}")
+    print(f"   Checkpoint saved to {CACHE_DIR}")
 
 
 def load_checkpoint():
     missing = [str(p) for p in _FILES.values() if not p.exists()]
     if missing:
-        print("  ⚠️  Checkpoint incomplete — missing:")
+        print("    Checkpoint incomplete — missing:")
         for m in missing:
             print(f"       {m}")
         return None
-    print("  ✅ Loading checkpoint …")
+    print("   Loading checkpoint …")
     df_combined      = pd.read_parquet(_FILES["df_combined"])
     df_cells         = pd.read_parquet(_FILES["df_cells"])
     elev_result      = pd.read_parquet(_FILES["elev_result"])
