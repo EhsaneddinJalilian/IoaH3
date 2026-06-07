@@ -9,10 +9,10 @@ Edit the paths and flags here before running.
 from pathlib import Path
 
 # ── Data paths ────────────────────────────────────────────────────────────────
-POP_RASTER_TIF    = Path(r"C:\work/My_papers/GeoData/data/raw/population_worldpop.tif")
-DEM_RASTER_TIF    = Path(r"C:\work/My_papers/GeoData/data/raw/Elevation_dhm_at_lamb_10m_2018.tif")
-HAZARD_RASTER_TIF = Path(r"C:\work/My_papers/GeoData/data/raw/flood_prob.tif")
-OSM_PBF           = Path(r"C:\work/My_papers/GeoData/data/raw/osm/austria-260128.osm.pbf")
+POP_RASTER_TIF    = Path(r"data/raw/population_worldpop.tif")
+DEM_RASTER_TIF    = Path(r"data/raw/Elevation_dhm_at_lamb_10m_2018.tif")
+HAZARD_RASTER_TIF = Path(r"data/raw/flood_prob.tif")
+OSM_PBF           = Path(r"data/raw/osm/austria-260128.osm.pbf")
 
 CACHE_DIR = Path("data/processed")
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
