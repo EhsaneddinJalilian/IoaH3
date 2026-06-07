@@ -61,7 +61,7 @@ def ensure_raster_4326(src_raster_path: Path) -> Path:
         with rasterio.open(src_raster_path) as src:
             if src.crs and src.crs.to_epsg() == 4326:
                 return src_raster_path
-            print(f"  🔄 Reprojecting: {src_raster_path.name}")
+            print(f"   Reprojecting: {src_raster_path.name}")
             dst_crs = "EPSG:4326"
             transform, width, height = calculate_default_transform(
                 src.crs, dst_crs, src.width, src.height, *src.bounds
@@ -82,7 +82,7 @@ def ensure_raster_4326(src_raster_path: Path) -> Path:
                     )
             return reprojected_file
     except Exception as e:
-        print(f"  ❌ Reprojection failed: {e}")
+        print(f"  x Reprojection failed: {e}")
         return None
 
 
@@ -108,7 +108,7 @@ def extract_osm_infrastructure(pbf_path: Path, coarse_res: int = COARSE_RES) -> 
         print(f"  ✓ Cached OSM infrastructure ({cache_name})")
         return pd.read_parquet(cache_file)
 
-    print("  ⚡ Streaming OSM → H3 …")
+    print("   Streaming OSM → H3 …")
     important_highways = {
         "motorway", "trunk", "primary", "secondary",
         "tertiary", "unclassified", "residential",
@@ -157,7 +157,7 @@ def extract_osm_infrastructure(pbf_path: Path, coarse_res: int = COARSE_RES) -> 
                         self.counts[h3.geo_to_h3(lat, lon, coarse_res)][2] += 1
             self.processed += 1
             if self.processed % 500_000 == 0:
-                print(f"    ⏳ {self.processed:,} ways …")
+                print(f"     {self.processed:,} ways …")
 
     handler = InfraHandler()
     handler.apply_file(pbf_path, locations=True)
@@ -165,7 +165,7 @@ def extract_osm_infrastructure(pbf_path: Path, coarse_res: int = COARSE_RES) -> 
     rows = [(h, v[0], v[1], v[2]) for h, v in handler.counts.items()]
     df = pd.DataFrame(rows, columns=["h3", "road", "poi", "building"])
     df.to_parquet(cache_file)
-    print(f"    ✅ {len(df):,} H3 cells  ⏱ {time.time() - start_time:.1f}s")
+    print(f"     {len(df):,} H3 cells  ⏱ {time.time() - start_time:.1f}s")
     return df
 
 
@@ -268,7 +268,7 @@ def _process_window(args):
                 result[cell][3] += 1
 
     except Exception as e:
-        print(f"⚠️  Window {window} failed: {e}")
+        print(f"  Window {window} failed: {e}")
     return result
 
 
@@ -290,7 +290,7 @@ def raster_to_h3(raster_path, res, stat="sum", downsample=1, bbox=None) -> pd.Da
 
     if cache_file.exists():
         if FORCE_RECOMPUTE_ELEV and is_elev:
-            print(f"  🗑️  FORCE_RECOMPUTE_ELEV — deleting: {cache_file.name}")
+            print(f"    FORCE_RECOMPUTE_ELEV — deleting: {cache_file.name}")
             cache_file.unlink(missing_ok=True)
         else:
             df = pd.read_parquet(cache_file)
@@ -306,7 +306,7 @@ def raster_to_h3(raster_path, res, stat="sum", downsample=1, bbox=None) -> pd.Da
             print(f"  ✓ Cached: {Path(raster_path).name} ({len(df):,} cells{info})")
             return df
 
-    print(f"  🚀 Converting {Path(raster_path).name} → Res {res}")
+    print(f"   Converting {Path(raster_path).name} → Res {res}")
     try:
         with rasterio.open(raster_path) as src:
             windows = (
