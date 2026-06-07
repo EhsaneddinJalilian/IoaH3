@@ -1,9 +1,6 @@
 # IOAH3: Importance-Driven Adaptive Spatial Partitioning
 
-Reference implementation for the paper:
-
 > **IOAH3: Importance-Driven Adaptive Spatial Partitioning via Graph-Cut Optimisation over H3 Hierarchical Grids**  
-> Ehsaneddin Jalilian, GeoSocial Artificial Intelligence, IT:U Austria
 
 ## Overview
 
