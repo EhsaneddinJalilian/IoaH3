@@ -444,6 +444,6 @@ def compute_pca_importance(df_pca: pd.DataFrame) -> np.ndarray:
     X = StandardScaler().fit_transform(df_pca[features])
     pc1 = PCA(n_components=1).fit_transform(X).flatten()
     scores = (pc1 - pc1.min()) / (pc1.max() - pc1.min() + 1e-8)
-    print(f"  ✅ PCA scores: {len(scores):,} cells  "
+    print(f"   PCA scores: {len(scores):,} cells  "
           f"min={scores.min():.4f}  max={scores.max():.4f}")
     return scores
