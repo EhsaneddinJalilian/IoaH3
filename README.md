@@ -101,7 +101,7 @@ the original Lambert-projected DEM.
 
 ## Citation
 
-If you use this code, please cite the accompanying preprint (link to be added after upload).
+If you use this code, please cite the accompanying preprint.
 
 ## License
 
