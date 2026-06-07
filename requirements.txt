@@ -1,0 +1,13 @@
+folium>=0.14
+h3>=3.7
+numpy>=1.24
+osmium>=3.6
+pandas>=2.0
+Pillow>=10.0
+pyproj>=3.5
+PyMaxflow>=1.3
+rasterio>=1.3
+scikit-learn>=1.3
+scipy>=1.11
+shapely>=2.0
+tqdm>=4.65
